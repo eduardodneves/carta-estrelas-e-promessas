@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07152d">
+  <meta name="description" content="Um pequeno universo de amor, fé e estrelas, preparado especialmente para meu anjo.">
+  <meta property="og:title" content="Meu Anjo, Entre Estrelas e Promessas">
+  <meta property="og:description" content="Três cartas, uma infinidade de sentimentos e um universo inteiro de carinho.">
+  <title>Meu Anjo, Entre Estrelas e Promessas</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/noite-estrelada.png" fetchpriority="high">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="sky-effects" id="skyEffects" aria-hidden="true">
+    <span class="shooting-star shooting-star-one"></span>
+    <span class="shooting-star shooting-star-two"></span>
+    <span class="shooting-star shooting-star-three"></span>
+  </div>
+
+  <!-- A tela de entrada cria o primeiro gesto necessário para iniciar a música em celulares. -->
+  <section class="welcome-screen" id="welcomeScreen" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="welcome-glow" aria-hidden="true"></div>
+    <div class="welcome-content">
+      <p class="welcome-eyebrow"><span>✦</span> uma pequena surpresa <span>✦</span></p>
+      <h1 id="welcomeTitle">Meu Anjo,<br><em>Entre Estrelas e Promessas</em></h1>
+      <p class="welcome-message">Preparei um cantinho do universo para guardar algumas palavras que vêm do coração.</p>
+      <button class="enter-button" id="enterButton" type="button">
+        <span>Entrar no meu universo</span><span class="enter-arrow" aria-hidden="true">↗</span>
+      </button>
+      <p class="welcome-hint" id="welcomeHint">Uma melodia suave acompanhará sua visita.</p>
+    </div>
+    <span class="welcome-bottom-star" aria-hidden="true">✧</span>
+  </section>
+
+  <main class="page" id="page" aria-hidden="true" inert>
+    <header class="intro">
+      <p class="eyebrow"><span aria-hidden="true">✦</span> Meu Anjo, Entre Estrelas e Promessas <span aria-hidden="true">✦</span></p>
+      <h2>Se o céu tivesse palavras, todas falariam do meu amor por você</h2>
+      <p class="instruction">Toque em uma das três partes da pintura e descubra as palavras que deixei para você.</p>
+    </header>
+
+    <section class="painting-section" aria-label="Pintura noturna interativa dividida em três áreas clicáveis">
+      <div class="painting" id="painting">
+        <img
+          class="painting-image"
+          src="assets/noite-estrelada.png"
+          alt="Paisagem noturna em estilo impressionista, com céu azul em espirais, estrelas douradas, uma vila iluminada e um campo de girassóis."
+          width="1672"
+          height="941"
+          fetchpriority="high"
+          draggable="false"
+        >
+        <div class="painting-sparkles" aria-hidden="true"></div>
+        <div class="painting-vignette" aria-hidden="true"></div>
+        <!-- Áreas transparentes: a pintura permanece limpa, sem molduras desenhadas. -->
+        <button class="card-hit-area card-left" type="button" data-letter="0" aria-label="Abrir a primeira carta" aria-haspopup="dialog"></button>
+        <button class="card-hit-area card-center" type="button" data-letter="1" aria-label="Abrir a segunda carta" aria-haspopup="dialog"></button>
+        <button class="card-hit-area card-right" type="button" data-letter="2" aria-label="Abrir a terceira carta" aria-haspopup="dialog"></button>
+      </div>
+      <p class="painting-caption"><span aria-hidden="true">✧</span> Três pedaços de uma mesma paisagem. Três cartas escritas com carinho. <span aria-hidden="true">✧</span></p>
+    </section>
+
+    <section class="music-player" aria-label="Música instrumental de fundo">
+      <div class="music-heading">
+        <span class="music-note" aria-hidden="true">♫</span>
+        <div>
+          <h2>Uma melodia sob as estrelas</h2>
+          <p>Deixe a música acompanhar este pequeno universo.</p>
+        </div>
+      </div>
+      <div class="music-controls">
+        <button class="music-toggle" id="musicToggle" type="button" aria-label="Pausar música">
+          <span class="music-toggle-icon" id="musicIcon" aria-hidden="true">Ⅱ</span>
+          <span id="musicLabel">Pausar música</span>
+        </button>
+        <label class="volume-control" for="volumeControl">
+          <span aria-hidden="true">♫</span>
+          <span class="sr-only">Volume da música</span>
+          <input id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.52">
+        </label>
+      </div>
+      <p class="music-status" id="musicStatus" aria-live="polite">A melodia está pronta para acompanhar sua leitura.</p>
+      <audio id="backgroundMusic" src="assets/musica-original.mp3" preload="auto" loop playsinline></audio>
+    </section>
+
+    <footer class="footer-note">
+      <span class="tiny-star" aria-hidden="true">✦</span>
+      <span>Que cada estrela lembre o quanto você é amada.</span>
+      <span class="tiny-star" aria-hidden="true">✦</span>
+    </footer>
+  </main>
+
+  <dialog class="letter-dialog" id="letterDialog" aria-labelledby="letterTitle">
+    <article class="letter-paper" id="letterPaper">
+      <button class="close-button" id="closeDialog" type="button" aria-label="Fechar carta">&times;</button>
+
+      <div class="letter-view" id="letterView">
+        <div class="letter-decoration" aria-hidden="true">✦</div>
+        <p class="letter-kicker">Uma mensagem escrita com o coração</p>
+        <div class="letter-progress" aria-label="Progresso das cartas">
+          <div class="letter-progress-top"><span id="letterCount">Carta 1 de 3</span><span id="letterPercent">33%</span></div>
+          <div class="progress-track"><span id="progressFill"></span></div>
+        </div>
+        <h2 id="letterTitle">Uma carta para meu anjo</h2>
+        <div class="letter-divider" aria-hidden="true"><span>✧</span></div>
+        <div class="letter-content" id="letterContent"></div>
+        <blockquote class="scripture-quote" id="scriptureQuote">
+          <p id="scriptureText"></p>
+          <cite id="scriptureReference"></cite>
+        </blockquote>
+        <p class="letter-signature" id="letterSignature">Com todo o meu amor.</p>
+        <div class="letter-bottom-star" aria-hidden="true">✦</div>
+        <nav class="letter-navigation" aria-label="Navegação entre cartas">
+          <button class="nav-button nav-previous" id="previousLetter" type="button">← Anterior</button>
+          <button class="nav-button nav-next" id="nextLetter" type="button">Próxima carta →</button>
+          <button class="nav-button nav-surprise" id="revealSurprise" type="button" hidden>Revelar surpresa ✨</button>
+        </nav>
+      </div>
+
+      <section class="final-view" id="finalView" hidden aria-labelledby="finalTitle">
+        <div class="final-starfield" aria-hidden="true"><span>✦</span><span>✧</span><span>·</span><span>✦</span><span>·</span></div>
+        <p class="letter-kicker">Uma última coisa que quero que você saiba</p>
+        <h2 id="finalTitle">Meu anjo, você é uma das minhas estrelas favoritas</h2>
+        <div class="letter-divider" aria-hidden="true"><span>✧</span></div>
+        <p class="final-message">Se eu pudesse pedir ao universo um presente, pediria que nunca lhe faltassem motivos para sorrir, coragem para seguir seus sonhos e paz para descansar o coração. Que Deus ilumine seus caminhos quando a estrada parecer incerta e que, mesmo nas noites mais longas, você consiga enxergar a luz que existe dentro de si.</p>
+        <p class="final-message">Não existe constelação capaz de contar tudo o que desejo de bonito para sua vida. Ainda assim, deixo estas palavras como pequenas estrelas: para lembrar que você é admirada, querida e merece receber um amor que respeite sua essência, cuide dos seus sentimentos e celebre sua luz.</p>
+        <p class="final-message final-emphasis">Entre infinitos céus possíveis, que privilégio é dividir este pedacinho do universo com você.</p>
+        <blockquote class="scripture-quote final-verse">
+          <p>“Acima de tudo, porém, revistam-se do amor, que é o elo perfeito.”</p>
+          <cite>Colossenses 3:14</cite>
+        </blockquote>
+        <p class="final-signature">Com todo o amor que cabe em mim,<br><span>hoje, amanhã e enquanto houver estrelas. ♡</span></p>
+        <button class="nav-button final-back" id="backToLetter" type="button">Voltar à carta</button>
+      </section>
+    </article>
+  </dialog>
+</body>
+</html>
